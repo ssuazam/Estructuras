@@ -9,12 +9,12 @@ package Structure;
  *
  * @author causugamo
  */
-public class LinkedLis<T extends Comparable> {
+public class LinkedList<T extends Comparable> {
 
     private ChainNode head;
     private ChainNode tail;
 
-    public LinkedLis() {
+    public LinkedList() {
         this.head = null;
         this.tail = null;
     }
@@ -75,6 +75,19 @@ public class LinkedLis<T extends Comparable> {
         node.setNext(nod);
         if (this.tail == node) {
             this.tail = nod;
+        }
+    }
+
+    public void printL() {
+        ChainNode R = this.head;
+        if (R==null){
+            System.out.println("Lista vacía");
+            return;
+        }
+        while (R!=null) {
+            System.out.println(R.getData());
+            R=R.getNext();
+
         }
     }
 }
