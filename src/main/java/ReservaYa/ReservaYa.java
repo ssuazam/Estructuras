@@ -20,26 +20,64 @@ public class ReservaYa {
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
         // TODO code application logic here
+        //CARGAR LISTAS DE USUARIOS Y RESTAURANTES
         LinkedList R = loadRest();
-        LinkedList U = loadUsers();
+        //LinkedList U = loadUsers();
 
+        //BUSCAR UN RESTAURANTE POR EL NOMBRE
+        String name = "Ultimo dato";
+        Restaurant w = findNameRest(name, R);
+        System.out.println(w.getName() + " igual a: " + name);
+/*
+        //ACTUALIZAR Nombre DE RESTAURANTE
+        String NuevoName = "newName";
+        UpdateRest(name, NuevoName, R);
+*/
     }
 
-    static private Nodo findR(String name,LinkedList A) {
+    static private void UpdateRest(String namebefore, String nameafter, LinkedList A) {
+        Nodo R = findRest(namebefore, A);
+        ((Restaurant) R.getData()).setName(nameafter);
+    }
+
+    static private Nodo findRest(String name, LinkedList A) {
         Restaurant R = new Restaurant(name);
         Nodo T = A.getHead();
-        /*
-        while (T!=null){
-            if (R.compareTo(T)=true)
-            T=T.getNext();
-        }*/
+        long inicio = System.nanoTime();
+        while (T != null) {
+            if (R.compareTo((Restaurant) T.getData()) == 0) {
+                long fin = System.nanoTime();
+                System.out.println("Tiempo findNameRest(): " + (fin - inicio) * 1.0e-9);
+                return T;
+            }
+            T = T.getNext();
+        }
+        long fin = System.nanoTime();
+        System.out.println("Tiempo findNameRest(): " + (fin - inicio) * 1.0e-9);
+        return null;
+    }
+
+    static private Restaurant findNameRest(String name, LinkedList A) {
+        Restaurant R = new Restaurant(name);
+        Nodo T = A.getHead();
+        long inicio = System.nanoTime();
+        while (T != null) {
+            if (R.compareTo((Restaurant) T.getData()) == 0) {
+                long fin = System.nanoTime();
+                System.out.println("Tiempo findNameRest(): " + (fin - inicio) * 1.0e-9);
+                return (Restaurant) T.getData();
+            }
+            T = T.getNext();
+        }
+        long fin = System.nanoTime();
+        System.out.println("Tiempo findNameRest(): " + (fin - inicio) * 1.0e-9);
         return null;
     }
 
     static private LinkedList loadRest() throws IOException {
         FileReader F = null;
         try {
-            F = new FileReader("Restaurant.csv");
+            F = new FileReader("Restauran3.csv");
         } catch (Exception e) {
             System.out.println("No existe el archivo");
         }
@@ -63,7 +101,7 @@ public class ReservaYa {
     static private LinkedList loadUsers() throws IOException {
         FileReader F = null;
         try {
-            F = new FileReader("User.csv");
+            F = new FileReader("User1.csv");
         } catch (FileNotFoundException e) {
             System.out.println("No existe el archivo");
         }
